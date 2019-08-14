@@ -1,0 +1,15 @@
+
+{# seminarseries.organizer -- auth.Group #}
+
+{% with user_list=seminarseries.organizer.user_set.all %}
+    {% if user_list %}
+        <p>
+            <strong>Organizer{{ user_list|pluralize }}:</strong>
+            {% for user in user_list %}
+                <a href="mailto:{{ user.email }}">
+                    {{ user.get_full_name }}{% if not forloop.last %},{% else %}.{% endif %}
+                </a>
+            {% endfor %}
+        </p>
+    {% endif %}
+{% endwith %}

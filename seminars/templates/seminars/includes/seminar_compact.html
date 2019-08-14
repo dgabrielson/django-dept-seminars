@@ -1,0 +1,12 @@
+<dt><b>{{ seminar.when|date:"l, F j" }}</b>{% if seminar.is_future %}, {{ seminar.when|time }}{% endif %}</dt>
+<dd>
+    {% if show_series %}
+        <a href="{{ seminar.series.get_absolute_url }}">
+            {{ seminar.series.short_name }} {{ seminar.series.descriptor }}</a>:
+    {% endif %}
+    {% if seminar.is_detail_linked %}
+    <a href="{{ seminar.get_absolute_url }}"><b>{{ seminar.speaker }}</b>{% if seminar.affiliation %} ({{ seminar.affiliation }}){% endif %}: &ldquo;{{ seminar.title }}&rdquo;</a>
+    {% else %}
+    <b>{{ seminar.speaker}}</b>{% if seminar.affiliation %} ({{ seminar.affiliation }}){% endif %}{% if seminar.title %}: &ldquo;{{ seminar.title }}&rdquo;{% endif %}
+    {% endif %}
+</dd>

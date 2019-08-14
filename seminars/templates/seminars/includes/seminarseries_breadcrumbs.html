@@ -1,0 +1,21 @@
+{% url 'seminars-series-list' as model_list_url %}
+{% if model_list_url %}
+    <span class="divider">&gt;</span>
+    {% if model_list_url != request.path %}
+        <a href="{{ model_list_url }}">Series</a>
+    {% else %}
+        Series
+    {% endif %}
+{% endif %}
+{% if seminarseries %}
+    <span class="divider">&gt;</span>
+    {% with model_url=seminarseries.get_absolute_url %}
+        {% if model_url != request.path %}
+            <a href="{{ seminarseries.get_absolute_url }}">
+                {{ seminarseries.short_name }}
+            </a>
+        {% else %}
+            {{ seminarseries.short_name }}
+        {% endif %}
+    {% endwith %}
+{% endif %}

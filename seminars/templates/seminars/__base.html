@@ -1,0 +1,60 @@
+{% extends "site_base.html" %}
+
+{# ########################################### #}
+
+{% block html_head %}
+{{ block.super }}
+{% block html_head_seminars_extra %}
+{% endblock %}
+{% endblock html_head %}
+
+{# ########################################### #}
+
+{% block page_title %}INSERT PAGE TITLE{% endblock %}
+
+{# ########################################### #}
+
+{% block page_content_header %}{% block title %}INSERT TITLE{% endblock %}{% endblock %}
+
+{% block page_content_body %}
+
+
+{% block content %}
+{% endblock %}
+
+{% block seminars_extra_content %}
+{% endblock %}
+
+{% endblock %}
+
+
+{# ########################################### #}
+
+{% block social_rss_feed %}
+    {% if seminarseries %}
+        <a href="{% url 'seminars-series-feed' series=seminarseries.slug %}"><img src="{{ STATIC_URL }}/img/rss.gif" alt="RSS feed" border="0"></a>
+    {% else %}
+        <a href="{% url 'seminars-feed' %}"><img src="{{ STATIC_URL }}/img/rss.gif" alt="RSS feed" border="0"></a>
+    {% endif %}
+{% endblock %}
+{% block social_calendar %}
+    {% if seminarseries %}
+        <a href="{% url 'seminars-series-calendar' series=seminarseries.slug %}"><img src="{{ STATIC_URL }}/img/calendar.png" alt="iCalendar" border="0"></a>
+    {% else %}
+        <a href="{% url 'seminars-calendar' %}"><img src="{{ STATIC_URL }}/img/calendar.png" alt="iCalendar" border="0"></a>
+    {% endif %}
+{% endblock %}
+
+{# ########################################### #}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% block app_breadcrumbs %}
+        <span class="divider">&gt;</span>
+        {% include './includes/app_breadcrumbs.html' %}
+        {% block page_breadcrumbs %}
+        {% endblock %}
+    {% endblock app_breadcrumbs %}
+{% endblock %}
+
+{# ########################################### #}

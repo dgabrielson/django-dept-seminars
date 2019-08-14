@@ -1,0 +1,45 @@
+{% extends 'seminars/__base.html' %}
+{
+{# ########################################### #}
+
+{% block page_title %}Seminar Series List{% endblock %}
+{% block title %}Seminar Series{% endblock %}
+
+{# ########################################### #}
+
+{% block page_breadcrumbs %}
+    {% include './includes/seminarseries_breadcrumbs.html' %}
+{% endblock page_breadcrumbs %}
+
+{# ########################################### #}
+
+{% block content %}
+
+<p>
+    Select a seminar series for more information, including
+    archives of past seminars,
+    upcoming seminars,
+    and
+    series organizer contact info.
+</p>
+
+{% if seminarseries_list %}
+    <ul class="simple">
+        {% for seminarseries in seminarseries_list %}
+            <li>
+                <a href="{{ seminarseries.get_absolute_url }}">
+                    {{ seminarseries }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        There are no seminar series.
+    </p>
+{% endif %}
+
+{% endblock %}
+
+
+{# ########################################### #}

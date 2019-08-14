@@ -1,0 +1,100 @@
+{% extends 'admin/change_form.html' %}
+{% load i18n admin_modify %}
+{% load static %}
+
+{# ########################################### #}
+
+{% block title %}Seminar Series Organizer Help{% endblock %}
+
+{# ########################################### #}
+
+
+{% block content %}
+<div id="content-main">
+    {% block object-tools %}
+        <ul class="object-tools">
+            {% block object-tools-items %}
+            {% endblock %}
+        </ul>
+    {% endblock %}
+
+    The organizing group for a seminar series is a regular user group. <br>
+    Members of the organizing group can use the admin site to organize seminars. <br>
+    Depending on your needs, one group can look after more than a single seminar series.
+
+    <h2>Setting up an Organizing Group</h2>
+    
+    
+    <ul>
+        <li>
+            Create the group (if necessary) using 
+            <a href="{% url 'admin:auth_group_add' %}">
+                Home › Authentication and Authorization › Groups › Add group</a>.  <br>
+            If you are using an <em>existing</em> user group, select it from
+            <a href="{% url 'admin:auth_group_changelist' %}">
+                Home › Authentication and Authorization › Groups</a>. <br>
+            <strong>Note</strong>:
+                From the seminar series edit page, you can click the green plus
+                or the pencil icons beside the organizing group drop-down.
+                <br>
+                <img src="{% static 'seminars/admin/img/help/organizer_edit_add.png' %}" alt="The pencil and green plus">
+        </li>
+        <li>
+            Make sure the group has a <em>meaningful name</em>,
+            like &ldquo;Seminar organizers: [series name]&rdquo; (without quotes).
+        </li>
+        <li>
+            Ensure that the group has the correct permissions. <br>
+            Type &ldquo;seminars&rdquo; in the available permissions search box
+            to filter the permissions list down to just the seminars app. <br>
+            Select all of the permissions, <em>except add and delete series</em>,
+            and click the left arrow to make these chosen permissions. <br>
+            (On Windows, press CTRL+A to select all of the seminars permissions,
+            then CTRL+click &ldquo;Can add series&rdquo; and 
+            &ldquo;Can delete series&rdquo;.<br>
+            &nbsp;On a Mac, use the CMD key instead of CTRL.)<br>
+            The correct permissions are shown below.<br>
+            <img src="{% static 'seminars/admin/img/help/organizer_group_perms.png' %}" alt="Correct group permissions">
+        </li>
+        <li>
+            Make sure to SAVE or ADD the group.
+        </li>
+    </ul>
+    
+    <h2>Group Membership</h2>
+    
+    <ul>
+        <li>
+            Membership of groups is handled by modifying individual users.<br>
+            Go to 
+            <a href="{% url 'admin:auth_user_changelist' %}">
+                Home › Authentication and Authorization › Users</a>. <br>
+            If you have only a few users, you can select a name from the list,
+            otherwise, you may need to search for a particular user.<br>
+            (Searches can be done by username, email, first name or last name.)
+        </li>
+        <li>
+            Click the username to open the Change user page.<br>
+        </li>
+        <li>
+            In the &ldquo;permissions&rdquo; section, ensure that 
+            &ldquo;Staff status&rdquo; is <strong>checked</strong>.<br>
+            (Only staff users can access the admin site.)
+        </li>
+        <li>
+            In the &ldquo;permissions&rdquo; section, under
+            &ldquo;Available groups&rdquo;, select the appropriate
+            organizing group and move it to one of the user's
+            &ldquo;Chosen groups&rdquo;.<br>
+            (Use the filter if necessary.)
+        </li>
+        <li>
+            SAVE the changes to the user.
+        </li>
+    </ul>    
+    
+</div>
+{% endblock %}
+
+
+{# ########################################### #}

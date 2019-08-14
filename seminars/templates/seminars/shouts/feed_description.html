@@ -1,0 +1,12 @@
+{% with seminar=shout %}
+{{ seminar.series.short_name }} {{ seminar.series.descriptor }}:<br>
+<strong>{{ seminar.speaker }}</strong>,
+{{ seminar.affiliation }}{% if seminar.title %}:
+    &ldquo;{{ seminar.title }}&rdquo;
+{% endif %}<br>
+{{ seminar.when|date:"l, F j" }} at {{ seminar.when|time }}<br>
+{% if seminar.location.slug != 'tba' %}
+    {{ seminar.location }}
+{% endif %}
+
+{% endwith %}

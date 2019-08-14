@@ -1,0 +1,18 @@
+{# context: result #}
+{# use div classes: link, extra info #}
+
+{% load markup %}
+
+<div class="link">
+    <a href="{{ result.object.get_absolute_url }}">
+        {{ result.object }}
+    </a>
+</div>
+{% if result.object.abstract %}
+<div class="content-preview">
+    {{ result.object.abstract|restructuredtext|truncatewords_html:"30"|striptags }}
+</div>
+{% endif %}
+<div class="extra-info">
+    Score: {{ result.score }} (Seminar)
+</div>

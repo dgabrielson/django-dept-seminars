@@ -1,0 +1,7 @@
+{% load markup %}{{ obj.series.short_name }} {{ obj.series.descriptor }}:<br>
+{{ obj.speaker }} {% if obj.affiliation %}({{ obj.affiliation }}){% endif %}<br>
+&ldquo;{{ obj.title }}&rdquo;<br>
+{{ obj.when|date:"l, F j, Y" }} at {{ obj.when|time }}<br>
+{{ obj.location }}<br>
+<br>
+{{ obj.abstract|restructuredtext }}

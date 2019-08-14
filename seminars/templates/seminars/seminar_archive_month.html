@@ -1,0 +1,34 @@
+{% extends 'seminars/__base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}{% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %} in {{ month|date:"F, Y"}}{% endblock %}
+{% block title %}{% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %} in {{ month|date:"F, Y"}}{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+    {% if seminarseries %}
+        <p>
+            <a href="{% url 'seminars-series-archive-year' series=seminarseries.slug year=month.year %}">
+                &laquo; Back to {{ seminarseries }} &mdash; {{ month|date:"Y" }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            <a href="{% url 'seminars-archive-year' month.year %}">&laquo; Back to the {{ month|date:"Y"}} archive</a>
+        </p>
+    {% endif %}
+
+    {% for seminar in object_list %}
+        <div class="seminar">
+            {% include "seminars/includes/info_part.html" %}
+         </div>
+    {% endfor %}
+
+
+{% endblock content %}
+
+
+{# ########################################### #}

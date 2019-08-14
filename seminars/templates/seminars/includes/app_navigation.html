@@ -1,0 +1,54 @@
+
+{% url 'seminars-archive' as link_url %}
+{% if link_url %}
+    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+        Seminars
+    </a>
+    {% if link_url in current_url %}
+        <ul>
+            {% url 'seminars-series-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                        Seminar series
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% url 'seminars-all-future' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                        Upcoming seminars
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% if user.is_staff %}
+                {% if perms.seminars.add_seminar %}
+                    {% url 'admin:seminars_seminar_add' as link_url %}
+                    {% if link_url %}
+                        <li>
+                            <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                                &star; Add a new seminar
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+
+                {% if perms.seminars.change_seminar %}
+                    {% url 'admin:seminars_seminar_changelist' as link_url %}
+                    {% if link_url %}
+                        <li>
+                            <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                                &star; Edit seminars
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endif %}

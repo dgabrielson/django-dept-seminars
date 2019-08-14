@@ -1,0 +1,26 @@
+
+{# seminarseries.organizer -- auth.Group #}
+{# this fragment assumes you have the people app installed #}
+
+{% load people_tags %}
+
+
+
+{% with user_list=seminarseries.organizer.user_set.all %}
+    {% if user_list %}
+        <p>
+            <strong>Organizer{{ user_list|pluralize }}:</strong>
+            {% for user in user_list %}
+                {% with person=user|get_person %}
+                    {% if person.get_absolute_url %}
+                        <a href="{{ person.get_absolute_url }}">
+                            {{ person }}{% if not forloop.last %},{% else %}.{% endif %}
+                        </a>
+                    {% else %}
+                        {{ person }}{% if not forloop.last %},{% else %}.{% endif %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </p>
+    {% endif %}
+{% endwith %}

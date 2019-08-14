@@ -1,0 +1,43 @@
+{% extends 'seminars/__base.html' %}
+
+{% load admin_static %}
+{% load static %}
+
+{# ########################################### #}
+
+{% block html_head %}
+{{ block.super }}
+
+{{ form.media }}
+{% endblock %}
+
+{# ########################################### #}
+
+{% block page_title %}{% if seminar %}Update{% else %}Add a{% endif %} Seminar{% endblock %}
+{% block title %}{% if seminar %}Update{% else %}Add a{% endif %} Seminar{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+
+<form enctype="multipart/form-data" action="." method="post" class="form">{% csrf_token %}
+    <table class="table-form">
+        {% include 'includes/form.html' %}
+        <tr class="submit-row">
+            <td>
+                <input type="submit" value="{% if seminar %}Update{% else %}Add{% endif %}">
+            </td>
+        </tr>
+    </table>
+</form>
+
+{% if not seminar %}
+{{ form.prepopulated_fields_js }}
+{% endif %}
+
+
+{% endblock %}
+
+
+{# ########################################### #}

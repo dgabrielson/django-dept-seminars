@@ -1,0 +1,11 @@
+{{ object.title }}
+{{ object.speaker }}
+{{ object.affiliation }}
+
+Date: {{ object.when|date:"l, F j, Y" }}
+Time: {{ object.when|time:"g:i a" }}
+Location: {{ object.location }}
+
+{{ object.abstract }}
+
+{{ object.note }}

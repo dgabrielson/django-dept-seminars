@@ -1,0 +1,36 @@
+{% extends 'seminars/seminarseries_detail.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}{{ seminarseries }} at a Glance{% endblock %}
+{% block title %}{{ seminarseries }} at a Glance{% endblock %}
+
+{# ########################################### #}
+
+{% block page_breadcrumbs %}
+    {% include './includes/seminarseries_breadcrumbs.html' %}
+    <span class="divider">&gt;</span>
+    At a glance
+{% endblock page_breadcrumbs %}
+
+{# ########################################### #}
+
+{% block content %}
+
+<p>Unless otherwise noted, seminars are at
+{{ seminarseries.default_time }}
+on
+{{ seminarseries.get_default_dayofweek_display }}.
+{% if seminarseries.default_note %}<br>
+{{ seminarseries.default_note }}
+{% endif %}
+</p>
+
+{% for seminar in seminarseries.seminar_set.active.future %}
+    {% include "seminars/includes/seminar_compact.html" %}
+{% endfor %}
+
+{% endblock content %}
+
+
+{# ########################################### #}

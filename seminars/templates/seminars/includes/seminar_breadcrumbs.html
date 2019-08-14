@@ -1,0 +1,16 @@
+{% if seminar.series.active and seminar.series.show_series %}
+    {% include './seminarseries_breadcrumbs.html' with seminarseries=seminar.series %}
+    {% url 'seminars-series-archive-year' series=seminar.series.slug year=seminar.when.year as archive_url %}
+    {% if archive_url %}
+        <span class="divider">&gt;</span>
+        <a href="{{ archive_url }}">{{ seminar.when.year }}</a>
+    {% endif %}
+{% else %}
+    {% url 'seminars-archive-year' year=seminar.when.year as archive_url %}
+    {% if archive_url %}
+        <span class="divider">&gt;</span>
+        <a href="{{ archive_url }}">{{ seminar.when.year }}</a>
+    {% endif %}
+{% endif %}
+<span class="divider">&gt;</span>
+{{ seminar.speaker }}

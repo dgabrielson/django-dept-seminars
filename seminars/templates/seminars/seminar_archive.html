@@ -1,0 +1,70 @@
+{% extends 'seminars/__base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}{% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %}{% endblock %}
+{% block title %}{% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %}{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+    {% if upcoming_seminars %}
+        <h2>Upcoming
+            {% if upcoming_seminars|length == 1 %}
+                {% if seminarseries %}
+                    {{ seminarseries.descriptor|title }}
+                {% else %}
+                    Seminar
+                {% endif %}
+            {% else %}
+                {% if seminarseries %}
+                    {{ seminarseries.descriptor_plural|title }}
+                {% else %}
+                    Seminars
+                {% endif %}
+            {% endif %}
+        </h2>
+         {% for seminar in upcoming_seminars %}
+            <div class="seminar">
+                {% include "seminars/includes/info_part.html" with show_series=True %}
+             </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if latest %}
+        <h2>
+            Recent
+            {% if seminarseries %}
+                {{ seminarseries.descriptor_plural|title }}
+            {% else %}
+                Seminars
+            {% endif %}
+        </h2>
+        {% for seminar in latest|slice:":5" %}
+            <div class="seminar">
+                {% include "seminars/includes/info_part.html" with show_series=True %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if date_list %}
+        <br>
+        <hr>
+        <br>
+        <p>
+            Archived {% if seminarseries %}
+                {{ seminarseries.descriptor_plural|title }}
+            {% else %}
+                seminars
+            {% endif %} by year:
+            {% for dt in date_list %}
+                <a href="{% url 'seminars-archive-year' dt.year %}">{{ dt.year }}</a>{% if not forloop.last %},{% else %}.{% endif %}
+            {% endfor %}
+        </p>
+    {% endif %}
+
+{% endblock content %}
+
+
+{# ########################################### #}

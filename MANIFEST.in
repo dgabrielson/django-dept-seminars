@@ -1,0 +1,4 @@
+include requirements.txt
+include LICENSE.txt
+recursive-include seminars/static *
+recursive-include seminars/templates *

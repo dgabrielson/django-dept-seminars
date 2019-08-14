@@ -1,0 +1,114 @@
+{% extends 'seminars/seminarseries_list.html' %}
+{% load markup static %}
+
+{# ########################################### #}
+
+{% block html_head_seminars_extra %}
+<script src="{% static 'js/clipboard.min.js' %}"></script>
+{% endblock %}
+
+{# ########################################### #}
+
+{% block page_title %}{{ seminarseries }}{% endblock %}
+{% block title %}{{ seminarseries }}{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+{# general #}
+{{ seminarseries.description|restructuredtext }}
+
+
+{# contact info #}
+{% include 'seminars/includes/series_organizer_info.html' %}
+
+{# at a glance #}
+<ul class="pagenav">
+    <li>
+        <a href="{% url 'seminars-at-a-glance' slug=seminarseries.slug %}">
+            {{ seminarseries }} at a Glance
+        </a>
+    </li>
+</ul>
+
+{# upcoming #}
+
+{% with upcoming_seminars=seminarseries.seminar_set.active.future.advertised.reverse|slice:':3' %}
+    {% if upcoming_seminars %}
+        <h2>Upcoming {% if upcoming_seminars|length == 1 %}{{ seminarseries.descriptor|title }}{% else %}{{ seminarseries.descriptor_plural|title }}{% endif %}</h2>
+        {% for seminar in upcoming_seminars %}
+            <div class="seminar">
+                {% include "seminars/includes/info_part.html" %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+{% endwith %}
+
+{# archive #}
+
+{% if date_list %}
+    <h2>Archived {{ seminarseries.descriptor_plural|title }}</h2>
+
+    {% for dt in date_list %}
+        <a href="{% url 'seminars-series-archive-year' series=seminarseries.slug year=dt.year %}">{{ dt.year }}</a>{% if not forloop.last %},{% else %}.{% endif %}
+    {% endfor %}
+{% endif %}
+
+
+{# links #}
+
+<h2>Subscriptions</h2>
+<p>
+    {% url 'seminars-series-calendar' series=seminarseries.slug as link_url %}
+    {% if link_url %}
+        <ul style="list-style-image: url({% static 'img/icons/calendar.svg' %})">
+            <li>
+                Calendar feed:
+                <div class="copy-link">
+                    <input id="seminar-calendar-url" value="{{ request.scheme }}://{{ request.get_host }}{{ link_url }}" readonly type="text">
+                    <span title="Copy to clipboard">
+                        <button data-clipboard-target="#seminar-calendar-url" class="copy-link-btn" ></button>
+                    </span>
+                </div>
+                <small>Use the button to copy the url; paste this into your calendar
+                program as a subscription.</small>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% url 'seminars-series-feed' series=seminarseries.slug as link_url %}
+    {% if link_url %}
+        <ul style="list-style-image:url({% static 'img/icons/rss.svg' %})">
+            <li>
+                <a href="{{ link_url }}">ATOM feed &raquo;</a>
+                <div class="copy-link">
+                    <input id="seminar-atom-url" value="{{ request.scheme }}://{{ request.get_host }}{{ link_url }}" readonly type="text">
+                    <span title="Copy to clipboard">
+                        <button data-clipboard-target="#seminar-atom-url" class="copy-link-btn" ></button>
+                    </span>
+                </div>
+                <small>Use the button to copy the url.</small>
+            </li>
+        </ul>
+    {% endif %}
+
+</p>
+
+
+{% endblock %}
+
+
+{# ########################################### #}
+
+
+{% block seminars_extra_content %}
+<script>
+    new Clipboard('.copy-link-btn');
+</script>
+{% endblock %}
+
+{# ########################################### #}

@@ -1,0 +1,19 @@
+{% load djtwit humanize %}{% singlespace %}
+{% with seminar=shout %}
+{{ seminar.series.short_name }} {{ seminar.series.descriptor }}:
+{{ seminar.speaker }}{% if seminar.title and seminar.title %}: 
+“{{ seminar.title|truncatechars:70 }}”
+{% else %}:
+{% endif %}
+{{ seminar.when|naturalday:"l, F j" }} at {{ seminar.when|time }}
+{% if seminar.location.slug != 'tba' %}
+in {{ seminar.location }}
+{% endif %}
+#StatsUmanSeminar
+{% with link=seminar.get_absolute_url %}
+{% if link %}
+http://{{ site }}{{ seminar.get_absolute_url }}
+{% endif %}
+{% endwith %}
+{% endwith %}
+{% endsinglespace %}

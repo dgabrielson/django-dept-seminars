@@ -1,0 +1,7 @@
+docutils
+#django-autoslug
+dcg-autoslug
+
+django-markuphelpers
+django-webcal
+django-dept-directory

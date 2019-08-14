@@ -1,0 +1,56 @@
+{% extends 'seminars/__base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}{% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %} in {{ year|date:"Y" }}{% endblock %}
+{% block title %}{% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %} in {{ year|date:"Y" }}{% endblock %}
+
+{# ########################################### #}
+
+{% block page_breadcrumbs %}
+    {% if seminarseries %}
+        {% url 'seminars-series-list' as model_list_url %}
+        {% if model_list_url %}
+            <span class="divider">&gt;</span>
+            {% if model_list_url != request.path %}
+                <a href="{{ model_list_url }}">Series</a>
+            {% else %}
+                Series
+            {% endif %}
+        {% endif %}
+        <span class="divider">&gt;</span>
+        <a href="{{ seminarseries.get_absolute_url }}">{{ seminarseries }}</a>
+    {% endif %}
+    <span class="divider">&gt;</span>
+    {{ year|date:"Y" }}
+{% endblock page_breadcrumbs %}
+
+
+{# ########################################### #}
+
+{% block content %}
+
+    <dl>
+    {% for seminar in object_list %}
+        {% include "seminars/includes/seminar_compact.html" %}
+    {% endfor %}
+    </dl>
+
+
+    {% if year_list %}
+        <br>
+        <hr>
+        <br>
+        <center>
+            Archived {{ seminarseries.descriptor_plural }} for:
+            {% for dt in year_list %}
+                {% if year != dt.year %}<a href="{% url 'seminars-archive-year' dt.year %}">{{ dt.year }}</a>{% else %}{{ dt.year }}{% endif %}{% if not forloop.last %},{% else %}.{% endif %}
+            {% endfor %}
+        </center>
+    {% endif %}
+
+
+{% endblock content %}
+
+
+{# ########################################### #}

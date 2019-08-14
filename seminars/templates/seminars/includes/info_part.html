@@ -1,0 +1,36 @@
+{% if show_series %}
+    <h3>
+        <a href="{{ seminar.series.get_absolute_url }}">
+            {{ seminar.series }}
+        </a>
+    </h3>
+{% endif %}
+{% if seminar.is_detail_linked and not seminar.title %}
+    <a href="{{ seminar.get_absolute_url }}">
+        <p class="name"> {{ seminar.speaker }}
+            {% if seminar.affiliation %}({{ seminar.affiliation }}){% endif %}
+        </p>
+    </a>
+{% else %}
+    <p class="name"> {{ seminar.speaker }}
+        {% if seminar.affiliation %}({{ seminar.affiliation }}){% endif %}
+    </p>
+{% endif %}
+{% if seminar.is_future %}
+    <p> {{ seminar.when|date:"l, F j" }} at {{ seminar.when|time }} </p>
+    <p> {% if seminar.location.slug == 'tba' %}Location {% endif %}{{ seminar.location }} </p>
+{% else %}
+    <p> {{ seminar.when|date:"l, F j" }}</p>
+{% endif %}
+{% if seminar.title %}
+    <p class="title">
+        {% if seminar.is_detail_linked %}
+            <a href="{{ seminar.get_absolute_url }}">&ldquo;{{ seminar.title }}&rdquo;</a>
+        {% else %}
+            &ldquo;{{ seminar.title }}&rdquo;
+        {% endif %}
+    </p>
+{% endif %}
+{% if seminar.note and seminar.is_future %}
+    <p> ({{ seminar.note }})</p>
+{% endif %}

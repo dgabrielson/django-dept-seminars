@@ -1,0 +1,41 @@
+{% extends 'seminars/__base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}Seminar Delete &mdash; Are you sure?{% endblock %}
+{% block title %}Are you sure you want to <strong>delete</strong> this seminar?{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+
+<div class="seminar">
+    {% include "seminars/includes/info_part.html" %}
+</div>
+
+<p>
+    <strong>Please note:</strong>
+    It is usually better to
+    {% if perms.seminars.change_seminar %}
+        <a href="{% url 'seminars-update' seminar.pk %}">edit the seminar</a>
+    {% else %}
+        edit the seminar
+    {% endif %}
+    and de-activate it, rather than deleting.
+</p>
+<form enctype="multipart/form-data" action="." method="post" class="form">{% csrf_token %}
+    <table class="table-form">
+        <tr class="submit-row">
+            <td>
+                <input type="submit" value="Delete">
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+{% endblock %}
+
+
+{# ########################################### #}

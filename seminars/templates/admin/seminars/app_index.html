@@ -1,0 +1,32 @@
+{% extends 'admin/app_index.html' %}
+{% load i18n static %}
+
+{# ########################################################## #}
+
+{% block sidebar %}
+{{ block.super }}
+{% comment %}
+<div id="content-related">
+    <div class="module">
+        <h2>{% trans 'Application Links' %}</h2>
+
+        <h3>{% trans 'Quick links' %}</h3>
+        
+            <ul class="actionlist">
+                {% url 'admin:seminars_seminar_bulk_create' as link_url %}
+                {% if link_url %}
+                    <li class="changelink">
+                        <a href="{{ link_url }}" class="historylink">
+                            {% trans 'Bulk create seminars' %}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        
+    </div>
+</div>
+{% endcomment %}
+{% endblock %}
+
+{# ########################################################## #}
+

@@ -1,0 +1,13 @@
+{% comment %}
+    Note: this template fragment is similar to info_part.html,
+    but is used for shouts on the web (sidebar info).
+
+    Seminars are only required to have a series, speaker, and when
+    (location, while required, could be 'TBA').
+    All other fields are optional.
+{% endcomment %}<a href="{{ seminar.series.get_absolute_url }}">{{ seminar.series.short_name }} {{ seminar.series.descriptor }}</a>:
+<strong>{{ seminar.speaker }}</strong>{% if seminar.is_detail_linked %}:
+        &ldquo;<a href="{{ seminar.get_absolute_url }}">{{ seminar.title }}</a>&rdquo;
+{% endif %} &mdash;
+{{ seminar.when|date:"l, F j" }} at {{ seminar.when|time }}{% if seminar.location.slug != 'tba' %},
+    {{ seminar.location }}{% endif %}.

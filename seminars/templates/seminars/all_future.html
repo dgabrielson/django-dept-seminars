@@ -1,0 +1,36 @@
+{% extends 'seminars/__base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}Upcoming {% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %}{% endblock %}
+{% block title %}Upcoming {% if seminarseries %}{{ seminarseries }}{% else %}Seminars{% endif %}{% endblock %}
+
+{# ########################################### #}
+
+{% block page_breadcrumbs %}
+    {{ block.super }}
+    {% if seminarseries %}
+        {% include './includes/seminarseries_breadcrumbs.html' %}
+    {% endif %}
+    <span class="divider">&gt;</span>
+    Upcoming
+{% endblock page_breadcrumbs %}
+
+
+{# ########################################### #}
+
+{% block content %}
+
+    {% if latest %}
+        <dl>
+        {% for seminar in latest.reverse %}
+            {% include "seminars/includes/seminar_compact.html" with show_series=True %}
+        {% endfor %}
+        </dl>
+    {% endif %}
+
+
+{% endblock content %}
+
+
+{# ########################################### #}
